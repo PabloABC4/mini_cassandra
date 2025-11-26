@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  node1:
+    build: .
+    container_name: node1
+    environment:
+      NODE_ID: "node1"
+      LISTEN_ADDR: ":8080"
+      CLUSTER_NODES: "node1=node1:8080,node2=node2:8080,node3=node3:8080"
+      REPLICATION_FACTOR: "3"
+    ports:
+      - "8081:8080"   # expõe nó 1 na porta 8081 do host
+
+  node2:
+    build: .
+    container_name: node2
+    environment:
+      NODE_ID: "node2"
+      LISTEN_ADDR: ":8080"
+      CLUSTER_NODES: "node1=node1:8080,node2=node2:8080,node3=node3:8080"
+      REPLICATION_FACTOR: "3"
+    ports:
+      - "8082:8080"   # expõe nó 2 na porta 8082 do host
+
+  node3:
+    build: .
+    container_name: node3
+    environment:
+      NODE_ID: "node3"
+      LISTEN_ADDR: ":8080"
+      CLUSTER_NODES: "node1=node1:8080,node2=node2:8080,node3=node3:8080"
+      REPLICATION_FACTOR: "3"
+    ports:
+      - "8083:8080"   # expõe nó 3 na porta 8083 do host
